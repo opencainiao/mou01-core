@@ -50,7 +50,8 @@ public class WxMessageUtil {
 	 * @return
 	 */
 	public static String textMessage2Xml(WxTextMessage message) {
-		XStream stream = new XStream();
-		return stream.toXML(message);
+		XStream xstream = new XStream();
+		xstream.alias("xml", message.getClass());// 将生成的XML文件的根节点替换成XML，默认为类的全路径类名
+		return xstream.toXML(message);
 	}
 }

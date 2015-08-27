@@ -34,6 +34,10 @@ public class WxTextMessage {
 	public String getCreateTime() {
 		return CreateTime;
 	}
+	
+	public void setCreateTime(long createTime) {
+		CreateTime = String.valueOf(createTime);
+	}
 
 	public void setCreateTime(String createTime) {
 		CreateTime = createTime;
