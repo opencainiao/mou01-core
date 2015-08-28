@@ -10,8 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.mou.common.JsonUtil;
 
-import com.mou01.core.domain.WxTextMessage;
+import com.mou01.core.domain.wx.WxMessage;
+import com.mou01.core.domain.wx.WxMessageType;
+import com.mou01.core.domain.wx.event.WxLOCATIONMessage;
+import com.mou01.core.domain.wx.normal.WxImageMessage;
+import com.mou01.core.domain.wx.normal.WxLinkMessage;
+import com.mou01.core.domain.wx.normal.WxLocationMessage;
+import com.mou01.core.domain.wx.normal.WxNormalMessage;
+import com.mou01.core.domain.wx.normal.WxShortvideoMessage;
+import com.mou01.core.domain.wx.normal.WxTextMessage;
+import com.mou01.core.domain.wx.normal.WxVideoMessage;
+import com.mou01.core.domain.wx.normal.WxVoiceMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class WxMessageUtil {
@@ -41,6 +52,30 @@ public class WxMessageUtil {
 
 		ins.close();
 		return rtnMap;
+	}
+
+	public static WxNormalMessage Map2WxNormalMessage(Map<String, String> map) {
+
+		String jsonStr = JsonUtil.toJsonStr(map);
+		String MsgType = map.get("MsgType");
+
+		if (MsgType.equals(WxMessageType.MSGTYPE_TEXT)) {
+			return JsonUtil.fromJson(jsonStr, WxTextMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_VIDEO)) {
+			return JsonUtil.fromJson(jsonStr, WxVideoMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_VOICE)) {
+			return JsonUtil.fromJson(jsonStr, WxVoiceMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_SHORTVIDEO)) {
+			return JsonUtil.fromJson(jsonStr, WxShortvideoMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_LOCATION)) {
+			return JsonUtil.fromJson(jsonStr, WxLocationMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_LINK)) {
+			return JsonUtil.fromJson(jsonStr, WxLinkMessage.class);
+		} else if (MsgType.equals(WxMessageType.MSGTYPE_IMAGE)) {
+			return JsonUtil.fromJson(jsonStr, WxImageMessage.class);
+		} else {
+			return null;
+		}
 	}
 
 	/****
