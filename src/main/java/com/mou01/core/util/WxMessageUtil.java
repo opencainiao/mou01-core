@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.set.SynchronizedSortedSet;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -34,8 +35,7 @@ public class WxMessageUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Map<String, String> xml2Map(HttpServletRequest request)
-			throws Exception {
+	public static Map<String, String> xml2Map(HttpServletRequest request) throws Exception {
 
 		Map<String, String> rtnMap = new HashMap<String, String>();
 
@@ -79,14 +79,21 @@ public class WxMessageUtil {
 	}
 
 	/****
-	 * 将文本消息对象转化为xml
+	 * 将消息对象转化为xml
 	 * 
 	 * @param message
 	 * @return
 	 */
-	public static String textMessage2Xml(WxTextMessage message) {
+	public static String WxMessage2Xml(WxMessage message) {
 		XStream xstream = new XStream();
 		xstream.alias("xml", message.getClass());// 将生成的XML文件的根节点替换成XML，默认为类的全路径类名
 		return xstream.toXML(message);
+	}
+
+	public static void main(String[] args) {
+		WxMessage message = new WxTextMessage();
+		System.out.println(message.getClass());
+		message = new WxImageMessage();
+		System.out.println(message.getClass());
 	}
 }
