@@ -35,7 +35,8 @@ public class HttpClientUtilWx {
 	public static final String APPSECRET = "f395c9ab615ae8ea647d840f360d9d2e";
 	public static final String getTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
-	private static final Logger logger = LogManager.getLogger(HttpClientUtilWx.class);
+	private static final Logger logger = LogManager
+			.getLogger(HttpClientUtilWx.class);
 
 	public static Map<String, Object> doGet(String url) {
 
@@ -117,14 +118,103 @@ public class HttpClientUtilWx {
 		return rtnMap;
 	}
 
+	/****
+	 * 获取微信公众平台测试号的AccessToken
+	 * 
+	 * @return
+	 */
+	public static AccessToken getAccessTokenTestWxH() {
+
+		String appid = "wx7a99ed318211de51";
+		String appsecret = "3505bea64a5cd3018ce709af19d7b022";
+		return getAccessTokenWith(appid, appsecret);
+	}
+
+	public static AccessToken getAccessTokenWith(String appid, String appsecret) {
+		AccessToken accessToken = null;
+
+		boolean isExist = false;
+		String _id = null;
+
+		// 1. 从全局配置中取ACCESSTOKEN
+		CommonDaoMongo commonDaoMongo = new CommonDaoMongo();
+		Criteria criteria = Criteria.where("APPID").is(appid);
+		criteria.and("APPSECRET").is(appsecret);
+		Query query = new Query(criteria);
+		accessToken = commonDaoMongo.findOne(query, AccessToken.class);
+
+		logger.debug("数据库中的ACCESS_TOKEN\n{}", accessToken);
+
+		if (accessToken != null) {
+			isExist = true;
+			_id = accessToken.get_id_m();
+
+			String last_op_time = accessToken.getLast_op_time();
+			String now = DateUtil.getCurrentTimsmp();
+
+			logger.debug("\n{}\n{}", last_op_time, now);
+			int between_seconds = DateUtil.getIntervalTimeStampSecond(now,
+					last_op_time);
+			logger.debug("距上次获取时间差[{}]秒", between_seconds);
+
+			int expires_in = accessToken.getExpires_in() - 200;
+			logger.debug("expires_in[{}]", expires_in);
+
+			if (between_seconds <= expires_in) {
+				return accessToken;
+			}
+		}
+
+		// 2.远程获取AccessToken
+		String tokenUrl = getTokenUrl.replace("APPID", appid).replace(
+				"APPSECRET", appsecret);
+
+		Map<String, Object> result = doGet(tokenUrl);
+		if (result == null) {
+			return null;
+		}
+
+		accessToken = JsonUtil.fromJson(JsonUtil.toJsonStr(result),
+				AccessToken.class);
+
+		// 3.设置到全局数据库中
+
+		if (isExist) {
+			// 更新
+			DBObject update = new BasicDBObject();
+			DBObject updateSet = new BasicDBObject();
+			updateSet.put("access_token", accessToken.getAccess_token());
+			updateSet.put("expires_in", accessToken.getExpires_in());
+			CommonDomainInfoSetter.setModifyInfo(updateSet);
+			update.put("$set", updateSet);
+			update.put("$inc", new BasicDBObject("times", 1));
+
+			DBObject upResult = commonDaoMongo.updateOneById(_id, null, update,
+					AccessToken.class);
+			logger.info("更新成功，更新后的结果[{}]", JsonUtil.getPrettyJsonStr(upResult));
+		} else {
+			// 插入
+			accessToken.setAPPID(appid);
+			accessToken.setAPPSECRET(appsecret);
+			accessToken.setTimes(1);
+			CommonDomainInfoSetter.setCreateInfo(accessToken);
+
+			_id = commonDaoMongo.insertOne(accessToken);
+
+			logger.info("首次获取token，插入数据库成功！_id[{}]", _id);
+		}
+
+		return accessToken;
+	}
+
 	public static AccessToken getAccessToken() {
 
 		AccessToken accessToken = null;
 
 		boolean isExist = false;
+		String _id = null;
 
 		// 1. 从全局配置中取ACCESSTOKEN
-		String _id = null;
 		CommonDaoMongo commonDaoMongo = new CommonDaoMongo();
 		Criteria criteria = Criteria.where("APPID").is(APPID);
 		criteria.and("APPSECRET").is(APPSECRET);
@@ -141,11 +231,12 @@ public class HttpClientUtilWx {
 			String now = DateUtil.getCurrentTimsmp();
 
 			logger.debug("\n{}\n{}", last_op_time, now);
-			int between_seconds = DateUtil.getIntervalTimeStampSecond(now, last_op_time);
+			int between_seconds = DateUtil.getIntervalTimeStampSecond(now,
+					last_op_time);
 			logger.debug("距上次获取时间差[{}]秒", between_seconds);
 
 			int expires_in = accessToken.getExpires_in() - 200;
-			logger.debug("expires_in[{}]",expires_in);
+			logger.debug("expires_in[{}]", expires_in);
 
 			if (between_seconds <= expires_in) {
 				return accessToken;
@@ -153,14 +244,16 @@ public class HttpClientUtilWx {
 		}
 
 		// 2.远程获取AccessToken
-		String tokenUrl = getTokenUrl.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
+		String tokenUrl = getTokenUrl.replace("APPID", APPID).replace(
+				"APPSECRET", APPSECRET);
 
 		Map<String, Object> result = doGet(tokenUrl);
 		if (result == null) {
 			return null;
 		}
 
-		accessToken = JsonUtil.fromJson(JsonUtil.toJsonStr(result), AccessToken.class);
+		accessToken = JsonUtil.fromJson(JsonUtil.toJsonStr(result),
+				AccessToken.class);
 
 		// 3.设置到全局数据库中
 
@@ -174,7 +267,8 @@ public class HttpClientUtilWx {
 			update.put("$set", updateSet);
 			update.put("$inc", new BasicDBObject("times", 1));
 
-			DBObject upResult = commonDaoMongo.updateOneById(_id, null, update, AccessToken.class);
+			DBObject upResult = commonDaoMongo.updateOneById(_id, null, update,
+					AccessToken.class);
 			logger.info("更新成功，更新后的结果[{}]", JsonUtil.getPrettyJsonStr(upResult));
 		} else {
 			// 插入
