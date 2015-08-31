@@ -14,6 +14,7 @@ public class WxMessageType {
 
 	// 回复消息类型
 	public static final String MSGTYPE_NEWS = "news"; // 图文消息
+	public static final String MSGTYPE_MUSIC = "music"; // 音乐消息
 
 	// 事件类型
 	public static final String EVENT_SUBSCRIBE = "subscribe";

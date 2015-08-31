@@ -1,8 +1,6 @@
 package com.mou01.core.domain.wx;
 
 import com.mou.mongodb.base.domain.BaseModel;
-import com.mou01.core.domain.wx.normal.WxImageMessage;
-import com.mou01.core.domain.wx.normal.WxTextMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class WxMessage extends BaseModel {

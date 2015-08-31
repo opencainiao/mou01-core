@@ -18,7 +18,8 @@ public class TestUploadToWxService {
 			.getLogger(TestUploadToWxService.class);
 
 	@Test
-	public void testUpload() throws IllegalAccessException, InvocationTargetException {
+	public void testUploadTempMediaFile() throws IllegalAccessException,
+			InvocationTargetException {
 
 		AccessToken token = HttpClientUtilWx.getAccessTokenTestWxH();
 		logger.debug("获取的AccessToken\n[{}]", token);
@@ -28,9 +29,8 @@ public class TestUploadToWxService {
 		IUploadToWxService uploadToWxService = new UploadToWxService();
 
 		try {
-			WxUploadResult wxUploadResult = uploadToWxService.uploadTempMediaFile(path,
-					token.getAccess_token(), "thumb");
-			
+			WxUploadResult wxUploadResult = uploadToWxService
+					.uploadTempMediaFile(path, token.getAccess_token(), "thumb");
 
 			logger.debug("上传文件至微信的返回结果\n[{}]", wxUploadResult);
 		} catch (Exception e) {
