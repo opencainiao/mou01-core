@@ -1,8 +1,8 @@
-package com.mou01.core.domain.wx.toweixin;
+package com.mou01.core.domain.wx.message.toweixin;
 
 import java.util.List;
 
-import com.mou01.core.domain.wx.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessage;
 import com.thoughtworks.xstream.XStream;
 
 /****

@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx;
+package com.mou01.core.domain.wx.message;
 
 public class WxMessageType {
 

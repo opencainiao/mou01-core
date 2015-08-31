@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mou01.core.domain.wx.WxMessage;
-import com.mou01.core.domain.wx.WxMessageType;
+import com.mou01.core.domain.wx.message.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessageType;
+import com.mou01.core.domain.wx.message.toweixin.News;
+import com.mou01.core.domain.wx.message.toweixin.NewsMessage;
 
 public class NewsMessageTest {
 

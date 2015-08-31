@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.event;
+package com.mou01.core.domain.wx.message.event;
 
 /****
  * 自定义菜单事件<br>

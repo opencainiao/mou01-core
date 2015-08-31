@@ -4,7 +4,9 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.mou01.core.domain.wx.WxMessageType;
+import com.mou01.core.domain.wx.message.WxMessageType;
+import com.mou01.core.domain.wx.message.toweixin.Image;
+import com.mou01.core.domain.wx.message.toweixin.ImageMessage;
 
 public class ImageMessageTest {
 

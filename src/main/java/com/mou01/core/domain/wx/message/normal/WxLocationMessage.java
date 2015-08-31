@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.normal;
+package com.mou01.core.domain.wx.message.normal;
 
 
 public class WxLocationMessage extends WxNormalMessage {

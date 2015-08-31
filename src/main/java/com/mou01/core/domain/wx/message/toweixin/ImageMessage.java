@@ -1,6 +1,6 @@
-package com.mou01.core.domain.wx.toweixin;
+package com.mou01.core.domain.wx.message.toweixin;
 
-import com.mou01.core.domain.wx.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessage;
 
 /****
  * 向微信返回图片消息

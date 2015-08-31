@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.event;
+package com.mou01.core.domain.wx.message.event;
 
 /****
  * 点击菜单跳转链接时的事件推送<br>

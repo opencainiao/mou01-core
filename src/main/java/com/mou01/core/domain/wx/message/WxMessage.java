@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx;
+package com.mou01.core.domain.wx.message;
 
 import com.mou.mongodb.base.domain.BaseModel;
 import com.thoughtworks.xstream.XStream;

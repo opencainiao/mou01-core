@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.event;
+package com.mou01.core.domain.wx.message.event;
 
 
 public class WxSubscribeTicketMessage extends WxEvent {

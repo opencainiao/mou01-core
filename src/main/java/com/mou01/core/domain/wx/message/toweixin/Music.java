@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.toweixin;
+package com.mou01.core.domain.wx.message.toweixin;
 
 public class Music {
 	

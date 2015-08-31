@@ -1,8 +1,8 @@
-package com.mou01.core.domain.wx.normal;
+package com.mou01.core.domain.wx.message.normal;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.mou01.core.domain.wx.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessage;
 
 /****
  * 普通消息

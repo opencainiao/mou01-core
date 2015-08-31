@@ -1,10 +1,10 @@
-package com.mou01.core.domain.wx.event;
+package com.mou01.core.domain.wx.message.event;
 
 import java.util.Map;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.mou01.core.domain.wx.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessage;
 
 @Document(collection = "wx_event")
 public class WxEvent extends WxMessage {

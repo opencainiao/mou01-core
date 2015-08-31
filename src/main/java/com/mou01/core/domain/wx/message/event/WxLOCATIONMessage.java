@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.event;
+package com.mou01.core.domain.wx.message.event;
 
 /****
  * 上报地理位置事件<br>

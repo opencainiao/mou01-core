@@ -13,17 +13,17 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.mou.common.JsonUtil;
 
-import com.mou01.core.domain.wx.WxMessage;
-import com.mou01.core.domain.wx.WxMessageType;
-import com.mou01.core.domain.wx.event.WxLOCATIONMessage;
-import com.mou01.core.domain.wx.normal.WxImageMessage;
-import com.mou01.core.domain.wx.normal.WxLinkMessage;
-import com.mou01.core.domain.wx.normal.WxLocationMessage;
-import com.mou01.core.domain.wx.normal.WxNormalMessage;
-import com.mou01.core.domain.wx.normal.WxShortvideoMessage;
-import com.mou01.core.domain.wx.normal.WxTextMessage;
-import com.mou01.core.domain.wx.normal.WxVideoMessage;
-import com.mou01.core.domain.wx.normal.WxVoiceMessage;
+import com.mou01.core.domain.wx.message.WxMessage;
+import com.mou01.core.domain.wx.message.WxMessageType;
+import com.mou01.core.domain.wx.message.event.WxLOCATIONMessage;
+import com.mou01.core.domain.wx.message.normal.WxImageMessage;
+import com.mou01.core.domain.wx.message.normal.WxLinkMessage;
+import com.mou01.core.domain.wx.message.normal.WxLocationMessage;
+import com.mou01.core.domain.wx.message.normal.WxNormalMessage;
+import com.mou01.core.domain.wx.message.normal.WxShortvideoMessage;
+import com.mou01.core.domain.wx.message.normal.WxTextMessage;
+import com.mou01.core.domain.wx.message.normal.WxVideoMessage;
+import com.mou01.core.domain.wx.message.normal.WxVoiceMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class WxMessageUtil {
