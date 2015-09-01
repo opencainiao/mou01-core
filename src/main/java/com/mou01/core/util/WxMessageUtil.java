@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.mou.common.JsonUtil;
+import org.springframework.web.util.HtmlUtils;
 
 import com.mou01.core.domain.wx.message.WxMessage;
 import com.mou01.core.domain.wx.message.WxMessageType;
@@ -35,7 +36,8 @@ public class WxMessageUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Map<String, String> xml2Map(HttpServletRequest request) throws Exception {
+	public static Map<String, String> xml2Map(HttpServletRequest request)
+			throws Exception {
 
 		Map<String, String> rtnMap = new HashMap<String, String>();
 
@@ -90,10 +92,24 @@ public class WxMessageUtil {
 		return xstream.toXML(message);
 	}
 
+	/****
+	 * 对于包含链接类的内容，进行特殊字符过滤处理
+	 * 
+	 * @param content
+	 * @return
+	 */
+	public static String enscapeHtml(String content) {
+
+		return content.replaceAll("&amp;lt;", "&lt;")
+				.replaceAll("&amp;gt;", "&gt;")
+				.replaceAll("&amp;quot;", "&quot;");
+	}
+
 	public static void main(String[] args) {
 		WxMessage message = new WxTextMessage();
 		System.out.println(message.getClass());
 		message = new WxImageMessage();
 		System.out.println(message.getClass());
 	}
+
 }

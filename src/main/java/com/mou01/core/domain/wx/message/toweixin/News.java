@@ -1,5 +1,6 @@
 package com.mou01.core.domain.wx.message.toweixin;
 
+
 /****
  * 图文消息
  * 

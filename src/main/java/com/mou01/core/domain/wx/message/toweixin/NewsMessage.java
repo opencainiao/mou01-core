@@ -35,7 +35,7 @@ public class NewsMessage extends WxMessage {
 
 	@Override
 	public String toXML() {
-		XStream xstream = new XStream();
+		XStream xstream = getXstream();
 		xstream.alias("xml", this.getClass());// 将生成的XML文件的根节点替换成XML，默认为类的全路径类名
 		xstream.alias("item", News.class);
 		return xstream.toXML(this);

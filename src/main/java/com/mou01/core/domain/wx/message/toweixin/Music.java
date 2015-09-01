@@ -1,7 +1,7 @@
 package com.mou01.core.domain.wx.message.toweixin;
 
+
 public class Music {
-	
 	private String Title;
 	private String Description;
 	private String MusicUrl;
