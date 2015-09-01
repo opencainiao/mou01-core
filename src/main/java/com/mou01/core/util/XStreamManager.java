@@ -1,4 +1,4 @@
-package com.mou01.core.domain.wx.message.xstream;
+package com.mou01.core.util;
 
 import java.io.Writer;
 import java.util.regex.Pattern;
